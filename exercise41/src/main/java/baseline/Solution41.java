@@ -7,6 +7,10 @@ package baseline;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
@@ -34,7 +38,7 @@ public class Solution41 {
         List<Name> names = new ArrayList<>();
 
         // open and parse through the file
-        try (Scanner input = new Scanner(Paths.get("src/main/resources/exercise41_input.txt"))) {
+        try (Scanner input = new Scanner(Paths.get("data/exercise41_input.txt"))) {
             while (input.hasNext()) {
                 // each name is comma separated (first and last), linebreak for each name
                 input.useDelimiter(", |\\R");
@@ -73,7 +77,7 @@ public class Solution41 {
 
     private void writeListToFile(List<Name> names) {
         // open and write to file
-        try (Formatter output = new Formatter("output/exercise41_output.txt")) {
+        try (Formatter output = new Formatter("data/exercise41_output.txt")) {
             // go through the list, writing each name on a line in the file
 
             // create the header
@@ -85,7 +89,11 @@ public class Solution41 {
             for (Name name : names) {
                 output.format("%s%n", name.toString());
             }
-        } catch (SecurityException | FileNotFoundException | FormatterClosedException e) {
+            // we didn't find the file
+        } catch (FileNotFoundException e) {
+            System.out.println("You must create an output file.");
+        }
+        catch (SecurityException | FormatterClosedException e) {
             e.printStackTrace();
         }
     }
