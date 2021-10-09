@@ -7,10 +7,6 @@ package baseline;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.nio.file.FileAlreadyExistsException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
@@ -64,7 +60,7 @@ public class Solution41 {
     }
 
     public List<Name> getSortedListOfNamesByLastName(List<Name> names) {
-        List<Name> sorted = names;
+        List<Name> sorted = new ArrayList<>(names);
 
         // sort the list of names by last name
         // if last name is the same, it will go by first name
@@ -97,6 +93,4 @@ public class Solution41 {
             e.printStackTrace();
         }
     }
-
-
 }

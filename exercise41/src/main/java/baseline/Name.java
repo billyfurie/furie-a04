@@ -1,7 +1,5 @@
 package baseline;
 
-import java.util.Locale;
-
 public class Name {
 
     private String first;
