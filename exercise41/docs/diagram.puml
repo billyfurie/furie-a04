@@ -1,0 +1,16 @@
+@startuml
+
+class Name {
+    -String first
+    -String last
+    +String getFirstName()
+    +String getLastName()
+    +String toString()
+}
+
+class Solution {
+    +List<Name> getListOfNamesFromFile()
+    +List<Name> getSortedListOfNamesByLastName(List<Name> names)
+    +void writeListToFile(List<Name> names)
+}
+@enduml

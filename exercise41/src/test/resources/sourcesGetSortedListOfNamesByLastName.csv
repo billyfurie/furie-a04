@@ -1,0 +1,6 @@
+PROVIDE IN SORTED ORDER: String first1, String last1, String first2, String last2, String first3, String last3
+Billy,Furie,Johnny,Live,Wilsef,Wise
+Billy,Furie,Johnny,Furie,Wilsef,Furie
+Billy,Furie,Brad,Furie,Byron,Furie
+Billy,Joe,Bobby,Joe,Bradley,Joe
+Timmy,James,Bobby,Joe,Bradley,Joe
