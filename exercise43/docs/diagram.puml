@@ -10,8 +10,9 @@ class Solution {
     -void generateDirectoryMain(String siteName)
     -void generateDirectoryJS(String siteName)
     -void generateDirectoryCSS(String siteName)
-    -void generateIndex(String siteName)
+    -void generateIndex(String siteName, String authorName)
     +String generateIndexContent(String siteName, String authorName)
+    +String getTitleHTML(String siteName)
 
     -createFileOrDirectory(String path)
     -createFileOrDirectory(String path, String fileContent)

@@ -1,0 +1,6 @@
+String siteName, String expectedTitleHTML
+billyfurie, <title>billyfurie</title>
+awesomeco, <title>awesomeco</title>
+awesome co, <title>awesome co</title>
+xbox, <title>xbox</title>
+University of Central Florida, <title>University of Central Florida</title>

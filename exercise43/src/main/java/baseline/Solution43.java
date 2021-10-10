@@ -5,81 +5,177 @@
 
 package baseline;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.security.InvalidParameterException;
+import java.util.Scanner;
+
 public class Solution43 {
 
+    private static final String MAIN_FOLDER_NAME = "website/";
+    private static final String JS_FOLDER_NAME = "js/";
+    private static final String CSS_FOLDER_NAME = "css/";
+    private static final String INDEX_FILE_NAME = "index.html";
+
+
+    private static final Scanner input = new Scanner(System.in);
+
     public static void main(String[] args) {
+        Solution43 solution = new Solution43();
+
         // get the site info from the user
+        String siteName = solution.getStringFromUser("Site name: ");
+        String authorName = solution.getStringFromUser("Author: ");
+
         // ask if they would like to include js or css folders
+        boolean createJS = solution.getYesOrNoFromUser("Do you want a folder for JavaScript? ");
+        boolean createCSS = solution.getYesOrNoFromUser("Do you want a folder for CSS? ");
+
         // create the site per specifications
+        solution.generateWebsite(siteName, authorName, createJS, createCSS);
     }
 
-    String getStringFromUser(String prompt) {
+    private String getStringFromUser(String prompt) {
         // prompt user
+        System.out.print(prompt);
         // grab string from user
         // return string
-
-        // placeholder
-        return null;
+        return input.nextLine();
     }
 
-    boolean getYesOrNoFromUser(String prompt) {
-        // prompt user
-        // get user response
-        // validate that it is a char and is yes or no
+    private boolean getYesOrNoFromUser(String prompt) {
+        boolean userResponse;
+
+        // keep asking until user enters valid response
+        while (true) {
+            System.out.print(prompt);
+            String response = input.nextLine();
+            // only breaks if the response is valid
+            try {
+                userResponse = getBooleanFromResponse(response);
+                break;
+            } catch (InvalidParameterException e) {
+                System.out.println("Please enter y or n");
+            }
+        }
+
         // return response as boolean
-
-        // placeholder
-        return false;
+        return userResponse;
     }
 
-    boolean isValidYesOrNoResponse(String response) {
-        // validate that response is char
-        // validate it is either 'y' or 'n'
-        // return whether it is valid
+    public boolean getBooleanFromResponse(String response) throws InvalidParameterException {
+        // validate that response is 'y' or 'n'
+        if (!response.equalsIgnoreCase("y") && !response.equalsIgnoreCase("n")) {
+            throw new InvalidParameterException("Expected a response of 'y' or 'n'");
+        }
 
-        // placeholder
-        return false;
+        // if it equals y, we return true
+        // otherwise it equals n, we return false
+        return response.equalsIgnoreCase("y");
     }
 
-    void generateWebsite(String siteName, String authorName, boolean createJS, boolean createCSS) {
+    private void generateWebsite(String siteName, String authorName, boolean createJS, boolean createCSS) {
         // generate main directory
-        // generate js directory (if requested)
-        // generate css directory (if requested)
-        // generate index file (with name of site and author)
+        generateDirectoryMain(siteName);
+
+        if (createJS) {
+            generateDirectoryJS(siteName);
+        }
+
+        if (createCSS) {
+            generateDirectoryCSS(siteName);
+        }
+
+        generateIndex(siteName, authorName);
     }
 
-    void generateDirectoryMain(String siteName) {
-        // generate a main directory in form ./website/`siteName`
+    private void generateDirectoryMain(String siteName) {
+        // generate a main directory in form ./website/siteName
+
+        // have to create website/
+        createFileOrDirectory(MAIN_FOLDER_NAME);
+
+        // then create website/siteName
+        String path = MAIN_FOLDER_NAME + siteName;
+        createFileOrDirectory(path);
     }
 
-    void generateDirectoryJS(String siteName) {
+    private void generateDirectoryJS(String siteName) {
         // generate a js directory
+        createFileOrDirectory(MAIN_FOLDER_NAME + siteName + "/" + JS_FOLDER_NAME);
     }
 
-    void generateDirectoryCSS(String siteName) {
+    private void generateDirectoryCSS(String siteName) {
         // generate a css directory
+        createFileOrDirectory(MAIN_FOLDER_NAME + siteName + "/" + CSS_FOLDER_NAME);
     }
 
-    void generateIndex(String siteName) {
-        // generate an index.html file
-        // fill the file with specified content
+    private void generateIndex(String siteName, String authorName) {
+        // generate index content
+        String content = generateIndexContent(siteName, authorName);
+
+        // generate an index.html file, fill the file with specified content
+        createFileOrDirectory(MAIN_FOLDER_NAME + siteName + "/" + INDEX_FILE_NAME, content);
     }
 
-    String generateIndexContent(String siteName, String authorName) {
+    private String generateIndexContent(String siteName, String authorName) {
         // generate name of site inside a <title> tag
         // generate author in a <meta> tag
+        StringBuilder builder = new StringBuilder();
+        String openHTML = "<!DOCTYPE html>\n<html>\n";
+        String meta = String.format("<meta name=\"author\" content=\"%s\">", authorName);
+        String closeHTML = "\n</html>";
+
+        // open the HTML
+        builder.append(openHTML);
+
+        // add the title
+        builder.append(getTitleHTML(siteName));
+
+        // add the meta
+        builder.append(meta);
+
+        // close the HTML
+        builder.append(closeHTML);
+
         // return this as a String
-
-        // placeholder
-        return null;
+        return builder.toString();
     }
 
-    void createFileOrDirectory(String path) {
+    public String getTitleHTML(String siteName) {
+        return String.format("<title>%s</title>%n", siteName);
+    }
+
+    private void createFileOrDirectory(String path) {
         // this is for creating the directory
+        File file = new File(path);
+        boolean worked = file.mkdir();
+        if (!worked) {
+            System.out.printf("Unable to make directory at path %s%n", path);
+        }
     }
 
-    void createFileOrDirectory(String path, String fileContent) {
+    private void createFileOrDirectory(String path, String fileContent) {
         // this is for creating the file
-        // we also need the content for the file
+        File file = new File(path);
+
+        // create the file
+        try {
+            boolean worked = file.createNewFile();
+            if (!worked) {
+                System.out.printf("Unable to create file at path %s%n", path);
+            }
+        } catch (IOException | SecurityException e) {
+            System.out.printf("Unable to create file at path %s%n", path);
+            return;
+        }
+
+        // write to the file
+        try (FileWriter writer = new FileWriter(path)){
+            writer.write(fileContent);
+        } catch (IOException e) {
+            System.out.printf("Unable to write to file at path %s%n", path);
+        }
     }
 }

@@ -1,0 +1,5 @@
+String response, boolean expected, anything else throws exception
+y, true
+Y, true
+n, false
+N, false
