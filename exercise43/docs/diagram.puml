@@ -1,0 +1,20 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Solution {
+    -String getStringFromUser(String prompt)
+    -boolean getYesOrNoFromUser(String prompt)
+    +boolean isValidYesOrNoResponse(String response)
+
+    -void generateWebsite(String siteName, String authorName, boolean createJS, boolean createCSS)
+    -void generateDirectoryMain(String siteName)
+    -void generateDirectoryJS(String siteName)
+    -void generateDirectoryCSS(String siteName)
+    -void generateIndex(String siteName)
+    +String generateIndexContent(String siteName, String authorName)
+
+    -createFileOrDirectory(String path)
+    -createFileOrDirectory(String path, String fileContent)
+}
+
+@enduml
