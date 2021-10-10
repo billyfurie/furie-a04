@@ -14,7 +14,7 @@ class Employee {
 class Solution {
     -List<Employee> readEmployeeListFromFile()
     -void displayEmployeeList()
-    -String getFormattedStringFromList()
+    +String getFormattedStringFromList()
 }
 
 @enduml
