@@ -1,0 +1,9 @@
+{
+  "products" : [
+    {"name": "Ben and Jerry's", "price": 25.00, "quantity": 50 },
+    {"name": "Milk", "price": 4.00, "quantity": 2 },
+    {"name": "Graphics Card", "price": 9999.00, "quantity": 0 },
+    {"name": "Money", "price": 0.00, "quantity": 0 },
+    {"name": "Friends", "price": 12345.67, "quantity": 0 }
+  ]
+}

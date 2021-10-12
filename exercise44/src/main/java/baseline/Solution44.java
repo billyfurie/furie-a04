@@ -5,35 +5,74 @@
 
 package baseline;
 
+import com.google.gson.*;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.Scanner;
+
 public class Solution44 {
 
+    private static final String INVENTORY_PATH = "data/exercise44_input.json";
+
+    private static final Scanner input = new Scanner(System.in);
+
     public static void main(String[] args) {
-        // keep getting product name from user
-        // search for product in inventory
-        // if it is in inventory, display the info, otherwise prompt for a different product
+        Solution44 solution = new Solution44();
+
+        // get our inventory from the json file
+        Inventory inventory = solution.getInventoryFromJSON(INVENTORY_PATH);
+
+        // this is for our loop
+        boolean productInStock = false;
+
+        while (!productInStock) {
+            // keep getting product name from user
+            String productName = solution.getProductNameFromUser();
+
+            // if this is false, we keep asking user until they give a product that is in stock
+            productInStock = inventory.isProductInInventory(productName);
+
+            if (productInStock) {
+                // search for product in inventory
+                // if we find the product, display the appropriate data
+                Product product = inventory.getProductFromSearch(productName);
+                System.out.println(product.toString());
+            } else {
+                // we didn't find the product
+                System.out.println("Sorry, that product was not found in our inventory.");
+            }
+        }
     }
 
     private String getProductNameFromUser() {
         // prompt user for a product name
+        System.out.print("What is the product name? ");
         // return the product name
-
-        // placeholder
-        return null;
+        return input.nextLine();
     }
 
-    public Product getProductFromInventoryFile(String productName) throws IllegalArgumentException {
-        // parse the file
-        // check if any of the names are productName
-        // if they are, return the product, otherwise throw exception
+    public Inventory getInventoryFromJSON(String path) {
+        // parse the json file for the inventory
+        Gson gson = new Gson();
+        // get the json as a string
+        String json = getInventoryFileAsString(path);
 
-        // placeholder
-        return null;
+        // return an inventory object using the json data
+        return gson.fromJson(json, Inventory.class);
     }
 
-    public String getProductData(Product product){
-        // return the products overridden toString method that will be formatted properly with the data
+    private String getInventoryFileAsString(String path) {
+        // return the text of the inventory file
+        File inventoryFile = new File(path);
+        try {
+            JsonElement fileElement = JsonParser.parseReader(new FileReader(inventoryFile));
+            return fileElement.toString();
 
-        // placeholder
-        return null;
+        } catch (FileNotFoundException e) {
+            System.out.printf("Unable to find the inventory file. Should be located at %s%n", INVENTORY_PATH);
+            return "";
+        }
     }
 }

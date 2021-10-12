@@ -1,0 +1,6 @@
+String name1, double price1, int quantity1, String name2, double price2, int quantity2, String searchName
+icecream, 10, 5, chocolate, 10, 2, chocolate
+icecream, 10, 5, chocolate, 10, 2, icecream
+dog food, 10, 5, chocolate, 10, 2, dog food
+icecream, 10, 5, dog food, 10, 2, dog food
+nothing, 1, 0, freebie, 0, 200, nothing

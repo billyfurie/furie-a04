@@ -3,8 +3,17 @@
 
 class Solution {
     -String getProductNameFromUser()
-    +Product getProductFromInventoryFile(String productName) // throws exception
-    String getProductData(Product product)
+    -String getInventoryFileAsString(String path)
+    +Inventory getInventoryFromJSON(String path)
+}
+
+class Inventory {
+    -Product[] products
+    -HashMap<String, Product> productsMap
+    -void createSearchMap()
+
+    +boolean isProductInInventory(String name)
+    +Product getProductFromSearch(String name)
 }
 
 class Product {
@@ -12,7 +21,10 @@ class Product {
     -double price
     -int quantity
 
-    +toString() // override using our format
+    +String getName() // used for creating hashmap later
+    +String toString() // override using our format
 }
+
+Inventory *-- Product : contains many
 
 @enduml

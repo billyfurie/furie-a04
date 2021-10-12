@@ -1,0 +1,5 @@
+String name, double price, int quantity, String searchName, boolean expectedInSearch
+icecream, 20, 2, icecream, true
+icecream, 20, 2, icecream2, false
+icecream, 20, 2, something else, false
+dog food, 20, 2, dog food, true
