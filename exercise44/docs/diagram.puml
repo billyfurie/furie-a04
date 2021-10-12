@@ -1,0 +1,18 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Solution {
+    -String getProductNameFromUser()
+    +Product getProductFromInventoryFile(String productName) // throws exception
+    String getProductData(Product product)
+}
+
+class Product {
+    -String name
+    -double price
+    -int quantity
+
+    +toString() // override using our format
+}
+
+@enduml
