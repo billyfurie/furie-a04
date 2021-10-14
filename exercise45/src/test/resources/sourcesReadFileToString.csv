@@ -1,0 +1,4 @@
+String fileName, String expected
+readFileTest1.txt, the dog is barking
+readFileTest2.txt, if it were that way it would be that way
+readFileTest3.txt, Talking while typing is talking while typing

@@ -1,0 +1,5 @@
+String content, String replaceMe, String replacement, String expected
+the dog is running, dog, cat, the cat is running
+we like to run and run, run, walk, we like to walk and walk
+these times are the best times of my life, times, moments, these moments are the best moments of my life
+on time, time, track, on track

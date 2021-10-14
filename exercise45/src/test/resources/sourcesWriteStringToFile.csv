@@ -1,0 +1,4 @@
+String fileName, String content
+writeFileOutput1.txt, Is this working
+writeFileOutput2.txt, if this was working we would have no errors.
+writeFileOutput3.txt, finally something to work with!

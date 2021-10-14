@@ -2,10 +2,15 @@
 'https://plantuml.com/class-diagram
 
 class Solution {
-    +String readFileToString()
+    ' constants
+    -String INPUT_PATH = "data/exercise45_input.txt"
+    -String REPLACE_ME = "utilize"
+    -String REPLACEMENT = "use"
+
+    +String readFileToString(String inputPath)
     -String getOutputFileNameFromUser()
-    +String replaceWordInString(String content, String replaced, String replacement)
-    +void writeStringToFile(String fileName, String content)
+    +String replaceWordInString(String content, String replaceMe, String replacement)
+    +void writeStringToFile(String outputPath, String fileName, String content)
 }
 
 @enduml
