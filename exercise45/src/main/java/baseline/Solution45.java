@@ -73,7 +73,7 @@ public class Solution45 {
             if (word.equals(replaceMe)) {
                 replacedBuilder.append(replacement);
             } else if (word.equals(replaceMe + "s")) {
-                replacedBuilder.append(replacement + "s");
+                replacedBuilder.append(replacement).append("s");
             } else {
                 replacedBuilder.append(word);
             }
