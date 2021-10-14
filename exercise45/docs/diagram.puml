@@ -1,0 +1,11 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Solution {
+    +String readFileToString()
+    -String getOutputFileNameFromUser()
+    +String replaceWordInString(String content, String replaced, String replacement)
+    +void writeStringToFile(String fileName, String content)
+}
+
+@enduml
