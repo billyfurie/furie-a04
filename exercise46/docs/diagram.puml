@@ -1,0 +1,30 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+class Solution {
+    +convertFileToString(String path)
+    -WordTracker buildWordTrackerFromString(String content)
+}
+
+class Word {
+    -String wordString
+    -int frequency
+
+    +incrementFrequency()
+    +int getFrequency()
+    +String toString() // override
+}
+
+class WordTracker {
+    -List<Word> words
+    -HashMap<String, Word> wordAddedMap
+
+    +addWord(String word)
+    +sortList()
+    +String toString() // override
+}
+
+WordTracker *-- Word : contains list of
+
+@enduml
