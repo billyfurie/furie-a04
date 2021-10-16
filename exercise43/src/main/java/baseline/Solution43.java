@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 public class Solution43 {
 
-    private static final String MAIN_FOLDER_NAME = "website/";
+    private static final String MAIN_FOLDER_NAME = "data/website/";
     private static final String JS_FOLDER_NAME = "js/";
     private static final String CSS_FOLDER_NAME = "css/";
     private static final String INDEX_FILE_NAME = "index.html";
@@ -103,20 +103,23 @@ public class Solution43 {
 
     private void generateDirectoryJS(String siteName) {
         // generate a js directory
-        createFileOrDirectory(MAIN_FOLDER_NAME + siteName + "/" + JS_FOLDER_NAME);
+        String path = MAIN_FOLDER_NAME + siteName + File.separator + JS_FOLDER_NAME;
+
+        createFileOrDirectory(path);
     }
 
     private void generateDirectoryCSS(String siteName) {
         // generate a css directory
-        createFileOrDirectory(MAIN_FOLDER_NAME + siteName + "/" + CSS_FOLDER_NAME);
+        String path = MAIN_FOLDER_NAME + siteName + File.separator + CSS_FOLDER_NAME;
+        createFileOrDirectory(path);
     }
 
     private void generateIndex(String siteName, String authorName) {
         // generate index content
         String content = generateIndexContent(siteName, authorName);
-
+        String path = MAIN_FOLDER_NAME + siteName + File.separator + INDEX_FILE_NAME;
         // generate an index.html file, fill the file with specified content
-        createFileOrDirectory(MAIN_FOLDER_NAME + siteName + "/" + INDEX_FILE_NAME, content);
+        createFileOrDirectory(path, content);
     }
 
     private String generateIndexContent(String siteName, String authorName) {
@@ -147,13 +150,16 @@ public class Solution43 {
         return String.format("<title>%s</title>%n", siteName);
     }
 
-    private void createFileOrDirectory(String path) {
+    public void createFileOrDirectory(String path) {
         // this is for creating the directory
         File file = new File(path);
         boolean worked = file.mkdir();
         if (!worked) {
             System.out.printf("Unable to make directory at path %s%n", path);
+            return;
         }
+
+        displayCreatedPath(path);
     }
 
     private void createFileOrDirectory(String path, String fileContent) {
@@ -171,11 +177,19 @@ public class Solution43 {
             return;
         }
 
+
         // write to the file
         try (FileWriter writer = new FileWriter(path)){
             writer.write(fileContent);
         } catch (IOException e) {
             System.out.printf("Unable to write to file at path %s%n", path);
+            return;
         }
+
+        displayCreatedPath(path);
+    }
+
+    private void displayCreatedPath(String path) {
+        System.out.printf("Created ./%s%n", path);
     }
 }

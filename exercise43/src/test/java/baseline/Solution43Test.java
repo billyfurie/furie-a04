@@ -1,10 +1,9 @@
 package baseline;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 
-import java.net.SocketOption;
+import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -28,6 +27,22 @@ class Solution43Test {
         String actual = solution.getTitleHTML(siteName);
 
         // using contains because of weird line separation
-        assert actual.contains(expectedTitleHTML);
+        assertTrue(actual.contains(expectedTitleHTML));
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/sourcesCreateFileOrDirectory.csv", numLinesToSkip = 1)
+    void createFileOrDirectory(String path) {
+
+        Solution43 solution = new Solution43();
+
+        solution.createFileOrDirectory(path);
+        
+        File file = new File(path);
+        boolean worked = file.isDirectory();
+
+        assertTrue(worked);
+
+        file.delete();
     }
 }
