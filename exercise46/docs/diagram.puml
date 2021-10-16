@@ -3,15 +3,21 @@
 
 
 class Solution {
+    -WordTracker tracker
+    +main(String[] args)
     +convertFileToString(String path)
     -WordTracker buildWordTrackerFromString(String content)
+    -displayHistogram(WordTracker tracker)
 }
 
 class Word {
+    -final int MINIMUM_SPACING_AMOUNT
+    -static int longestWordLength
     -String wordString
     -int frequency
 
     +incrementFrequency()
+    +String getWordString()
     +int getFrequency()
     +String toString() // override
 }
@@ -20,11 +26,14 @@ class WordTracker {
     -List<Word> words
     -HashMap<String, Word> wordAddedMap
 
+    +List<Word> getList()
     +addWord(String word)
     +sortList()
     +String toString() // override
 }
 
 WordTracker *-- Word : contains list of
+
+Solution *-- WordTracker : contains 1
 
 @enduml
